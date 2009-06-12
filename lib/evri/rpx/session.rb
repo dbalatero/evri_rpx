@@ -29,12 +29,23 @@ module Evri
       #   :extended => (true|false)
       #     If you are a Plus/Pro customer, RPX will return extended
       #     data.
+      #
+      #     Default: false
       def auth_info(token, options = {})
         params = { 'apiKey' => @api_key,
                    'token' => token }
         json = parse_response(get("/api/#{API_VERSION}/auth_info",
                                   params))
         User.new(json)
+      end
+
+      # Returns the mappings for a given user's primary key.
+      def mappings(primary_key)
+        params = { 'apiKey' => @api_key,
+                   'primaryKey' => primary_key }
+        json = parse_response(get("/api/#{API_VERSION}/mappings",
+                                  params))
+        Mappings.new(json)
       end
 
       private

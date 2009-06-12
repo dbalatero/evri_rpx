@@ -45,4 +45,16 @@ describe Evri::RPX::Session do
       result.should be_a_kind_of(Evri::RPX::User)
     end
   end
+
+  describe "mappings" do
+    it "should return a Mappings object" do
+      FakeWeb.register_uri(:get,
+                           'http://rpxnow.com:443/api/v2/mappings',
+                           :file => fixture_path('mappings/identifiers.json'))
+
+      result = @session.mappings('dbalatero')
+      result.should be_a_kind_of(Evri::RPX::Mappings)
+      result.identifiers.should_not be_empty
+    end
+  end
 end

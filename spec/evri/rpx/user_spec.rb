@@ -13,6 +13,15 @@ describe Evri::RPX::User do
     end
   end
 
+  describe "raw / json methods" do
+    it "should return the raw JSON that was passed to the constructor" do
+      json = { 'profile' => { 'email' => 'foo@bar.com' } }
+      user = Evri::RPX::User.new(json)
+      user.raw.should == json
+      user.json.should == json
+    end
+  end
+
   describe "parsing Twitter logins" do
     before(:all) do
       json = json_fixture('user/dbalatero_twitter.json')
@@ -214,6 +223,80 @@ describe Evri::RPX::User do
     describe 'provider_name' do
       it 'should be Facebook' do
         @user.provider_name.should == 'Facebook'
+      end
+    end
+  end
+
+  # Yahoo logins
+  describe "parsing Yahoo logins" do
+    before(:all) do
+      json = json_fixture('user/dbalatero_yahoo.json')
+      @user = Evri::RPX::User.new(json)
+    end
+
+    describe "name" do
+      it "should be equal to the formatted name" do
+        @user.name.should == 'David Balatero'
+      end
+    end
+
+    describe "photo" do
+      it "should be nil" do
+        @user.photo.should be_nil
+      end
+    end
+
+    describe "display_name" do
+      it "should be the displayName in the JSON" do
+        @user.display_name.should == 'David Balatero'
+      end
+    end
+    
+    describe 'profile_url' do
+      it "should be nil" do
+        @user.profile_url.should be_nil
+      end
+    end
+
+    describe 'username' do
+      it "should be the user's Yahoo username" do
+        @user.username.should == 'David'
+      end
+    end
+
+    describe 'primary_key' do
+      it "should be nil" do
+        @user.primary_key.should == 'David'
+      end
+    end
+    
+    describe 'identifier' do
+      it "should be the identifier that Yahoo gives" do
+        @user.identifier.should =~ /https:\/\/me\.yahoo\.com/
+      end
+    end
+
+    describe 'email' do
+      it "should be dbalatero@yahoo.com" do
+        @user.email.should == 'dbalatero@yahoo.com'
+      end
+    end
+
+    describe "yahoo?" do
+      it "should be true for Yahoo responses" do
+        @user.yahoo?.should be_true
+      end
+    end
+
+    describe "credentials" do
+      it "should be nil" do
+        @user.credentials.should be_nil
+      end
+    end
+
+    describe 'provider_name' do
+      it 'should be Yahoo' do
+        @user.provider_name.should == 'Yahoo!'
       end
     end
   end

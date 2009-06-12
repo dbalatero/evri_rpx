@@ -3,6 +3,9 @@ module Evri
     class User
       class InvalidUserJsonError < StandardError; end
 
+      attr_reader :json
+      alias :raw :json
+
       def initialize(json)
         if json.nil? or !json['profile']
           raise InvalidUserJsonError,
@@ -73,6 +76,10 @@ module Evri
 
       def facebook?
         provider_name == 'Facebook'
+      end
+
+      def yahoo?
+        provider_name == 'Yahoo!'
       end
     end
   end

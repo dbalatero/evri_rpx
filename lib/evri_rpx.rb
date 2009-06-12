@@ -5,5 +5,6 @@ require 'net/http'
 require 'net/https'
 
 require 'evri/rpx'
+require 'evri/rpx/mappings'
 require 'evri/rpx/session'
 require 'evri/rpx/user'

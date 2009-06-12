@@ -12,8 +12,35 @@ describe Evri::RPX::Session do
   end
 
   describe "auth_info" do
+    after(:each) do
+      FakeWeb.clean_registry
+    end
+
+    it "should raise an APICallError if RPX returns an error message" do
+      FakeWeb.register_uri(:get,
+                           'http://rpxnow.com:443/api/v2/auth_info',
+                           :file => fixture_path('session/normal_error.json'),
+                           :status => ['400', 'Bad Request'])
+      lambda {
+        @session.auth_info('errortoken')
+      }.should raise_error(Evri::RPX::Session::APICallError)
+    end
+
+    it "should raise ServiceUnavailableError if the service is not available" do
+      FakeWeb.register_uri(:get,
+                           'http://rpxnow.com:443/api/v2/auth_info',
+                           :file => fixture_path('session/service_down_error.json'),
+                           :status => ['404', 'Not Found'])
+      lambda {
+        @session.auth_info('errortoken')
+      }.should raise_error(Evri::RPX::Session::ServiceUnavailableError)
+    end
+
     it "should return a User object for a mapping" do
-      pending
+      FakeWeb.register_uri(:get,
+                           'http://rpxnow.com:443/api/v2/auth_info',
+                           :file => fixture_path('user/dbalatero_gmail.json'))
+
       result = @session.auth_info('mytoken')
       result.should be_a_kind_of(Evri::RPX::User)
     end

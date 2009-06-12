@@ -4,7 +4,7 @@ module Evri
       class InvalidUserJsonError < StandardError; end
 
       def initialize(json)
-        if !json['profile']
+        if json.nil? or !json['profile']
           raise InvalidUserJsonError,
                 'The JSON passed in is invalid!'
         end
@@ -51,13 +51,28 @@ module Evri
         nil
       end
 
+      # Returns a user's email.
+      def email
+        @json['profile']['email'] rescue nil
+      end
+
+      # Returns the provider name for this user, aka "Twitter", "Google".
+      # Also, see convenience methods such as #google?, #twitter?
+      def provider_name
+        @json['profile']['providerName'] rescue nil
+      end
+
       # Returns true if this is a Twitter login.
       def twitter?
-        @json['profile']['providerName'] == 'Twitter'
+        provider_name == 'Twitter'
       end
 
       def google?
-        @json['profile']['providerName'] == 'Google'
+        provider_name == 'Google'
+      end
+
+      def facebook?
+        provider_name == 'Facebook'
       end
     end
   end

@@ -8,7 +8,13 @@ Spec::Runner.configure do |config|
   
 end
 
+require 'fakeweb'
+FakeWeb.allow_net_connect = false
+
 def json_fixture(path)
-  file = File.expand_path(File.join(File.dirname(__FILE__), 'fixtures', path))
-  JSON.parse(File.read(file))
+  JSON.parse(File.read(fixture_path(path)))
+end
+
+def fixture_path(path)
+  File.expand_path(File.join(File.dirname(__FILE__), 'fixtures', path))
 end

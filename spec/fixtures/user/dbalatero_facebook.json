@@ -1,0 +1,31 @@
+{
+  "profile": {
+    "name": {
+      "givenName": "David",
+      "familyName": "Balatero",
+      "formatted": "David Balatero"
+    },
+    "address": {
+      "region": "Washington",
+      "country": "United States",
+      "postalCode": "98115",
+      "locality": "Seattle"
+    },
+    "photo": "http:\/\/profile.ak.facebook.com\/v230\/745\/68\/n10701789_1299.jpg",
+    "displayName": "David Balatero",
+    "preferredUsername": "DavidBalatero",
+    "url": "http:\/\/www.facebook.com\/profile.php?id=10701789",
+    "utcOffset": "-07:00",
+    "gender": "male",
+    "birthday": "1986-08-31",
+    "providerName": "Facebook",
+    "identifier": "http:\/\/www.facebook.com\/profile.php?id=10701789"
+  },
+  "accessCredentials": {
+    "expires": "1244930400",
+    "uid": "10701789",
+    "type": "Facebook",
+    "sessionKey": "--------snip---------"
+  },
+  "stat": "ok"
+}

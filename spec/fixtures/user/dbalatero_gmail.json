@@ -1,0 +1,20 @@
+{
+  "profile": {
+    "verifiedEmail": "dbalatero@gmail.com",
+    "name": {
+      "givenName": "David",
+      "familyName": "Balatero",
+      "formatted": "David Balatero"
+    },
+    "address": {
+      "country": "United States"
+    },
+    "displayName": "dbalatero",
+    "preferredUsername": "dbalatero",
+    "providerName": "Google",
+    "primaryKey": "DavidBalateroTestRPXX",
+    "identifier": "https:\/\/www.google.com\/accounts\/o8\/id?id=AItOawm4ssnouvp4V-snip",
+    "email": "dbalatero@gmail.com"
+  },
+  "stat": "ok"
+}

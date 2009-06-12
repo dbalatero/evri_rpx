@@ -5,13 +5,11 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "evri_rpx"
-    gem.summary = %Q{TODO}
+    gem.summary = %Q{An API wrapper for the RPXNow.com login service.}
     gem.email = "dbalatero@evri.com"
     gem.homepage = "http://github.com/dbalatero/evri_rpx"
     gem.authors = ["David Balatero"]
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
-
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end

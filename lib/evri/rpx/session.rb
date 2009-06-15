@@ -9,7 +9,6 @@ module Evri
 
 
       class ServiceUnavailableError < StandardError; end
-      #class ServiceUpstreamError < StandardError; end
       class APICallError < StandardError; end
 
       attr_reader :api_key
@@ -34,18 +33,35 @@ module Evri
       def auth_info(token, options = {})
         params = { 'apiKey' => @api_key,
                    'token' => token }
+        params.merge!(options)
+
         json = parse_response(get("/api/#{API_VERSION}/auth_info",
                                   params))
         User.new(json)
       end
 
-      # Returns the mappings for a given user's primary key.
+      # Returns the mappings for a given user's primary key, as a
+      # Evri::RPX::Mappings object.
       def mappings(primary_key)
         params = { 'apiKey' => @api_key,
                    'primaryKey' => primary_key }
         json = parse_response(get("/api/#{API_VERSION}/mappings",
                                   params))
         Mappings.new(json)
+      end
+
+
+      def map(primary_key, user_or_identifier, options = {})
+        params = { 'apiKey' => @api_key,
+                   'primaryKey' => primary_key,
+                   'overwrite' => true }
+        params.merge!(options)
+        params['identifier'] = user_or_identifier.respond_to?(:identifier) ? 
+            user_or_identifier.identifier : user_or_identifier
+        json = parse_response(get("/api/#{API_VERSION}/map",
+                                  params))
+
+        return json['stat'] == 'ok'
       end
 
       private

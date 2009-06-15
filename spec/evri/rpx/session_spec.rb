@@ -46,6 +46,27 @@ describe Evri::RPX::Session do
     end
   end
 
+  describe "map" do
+    before(:each) do
+      FakeWeb.register_uri(:get,
+                           'http://rpxnow.com:443/api/v2/map',
+                           :file => fixture_path('session/map.json'))
+    end
+
+    it "should take in a User object as the second parameter" do
+      user = mock('user')
+      user.should_receive(:identifier).and_return('dbalatero')
+
+      result = @session.map(50, user)
+      result.should be_true
+    end
+
+    it "should take in a identifier string as the second parameter" do
+      result = @session.map(50, 'dbalatero')
+      result.should be_true
+    end
+  end
+
   describe "mappings" do
     it "should return a Mappings object" do
       FakeWeb.register_uri(:get,

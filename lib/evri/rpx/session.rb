@@ -5,7 +5,7 @@ module Evri
       API_HOST = 'rpxnow.com'
       ROOT_CA_PATH = File.expand_path(File.join(File.dirname(__FILE__),
                                                 '..', '..', '..', 'certs',
-                                                'curl-ca-bundle.crt'))
+                                                'cacert.pem'))
 
 
       class ServiceUnavailableError < StandardError; end
@@ -100,7 +100,8 @@ module Evri
 
       def make_request(request)
         http = Net::HTTP.new(API_HOST, 443)
-        http.ca_path = ROOT_CA_PATH
+        http.use_ssl = true
+        http.ca_file = ROOT_CA_PATH
         http.verify_mode = OpenSSL::SSL::VERIFY_PEER
         http.verify_depth = 5
         http.request(request)

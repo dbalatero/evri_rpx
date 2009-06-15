@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{evri_rpx}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Balatero"]
@@ -19,7 +19,8 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
-     "certs/curl-ca-bundle.crt",
+     "certs/cacert.pem",
+     "evri_rpx.gemspec",
      "lib/evri/rpx.rb",
      "lib/evri/rpx/mappings.rb",
      "lib/evri/rpx/session.rb",

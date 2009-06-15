@@ -55,14 +55,14 @@ describe Evri::RPX::Session do
 
     it "should take in a User object as the second parameter" do
       user = mock('user')
-      user.should_receive(:identifier).and_return('dbalatero')
+      user.should_receive(:identifier).and_return('http://www.facebook.com/dbalatero')
 
-      result = @session.map(50, user)
+      result = @session.map(user, 50)
       result.should be_true
     end
 
     it "should take in a identifier string as the second parameter" do
-      result = @session.map(50, 'dbalatero')
+      result = @session.map('http://www.facebook.com/dbalatero', 50)
       result.should be_true
     end
   end
@@ -76,6 +76,39 @@ describe Evri::RPX::Session do
       result = @session.mappings('dbalatero')
       result.should be_a_kind_of(Evri::RPX::Mappings)
       result.identifiers.should_not be_empty
+    end
+
+    it "should take a User object in" do
+      FakeWeb.register_uri(:get,
+                           'http://rpxnow.com:443/api/v2/mappings',
+                           :file => fixture_path('mappings/identifiers.json'))
+      user = mock('user')
+      user.should_receive(:primary_key).and_return('dbalatero')
+
+      result = @session.mappings(user)
+      result.should be_a_kind_of(Evri::RPX::Mappings)
+      result.identifiers.should_not be_empty
+    end
+  end
+
+  describe "unmap" do
+    before(:each) do
+      FakeWeb.register_uri(:get,
+                           'http://rpxnow.com:443/api/v2/unmap',
+                           :file => fixture_path('session/unmap.json'))
+    end
+
+    it "should take a string as the identifier" do
+      result = @session.unmap('http://www.facebook.com/dbalatero', 50)
+      result.should be_true
+    end
+
+    it "should take a User as the identifier" do
+      user = mock('user')
+      user.should_receive(:identifier).and_return('http://www.facebook.com/dbalatero')
+
+      result = @session.unmap(user, 50)
+      result.should be_true
     end
   end
 end

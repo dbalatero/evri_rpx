@@ -3,7 +3,7 @@ module Evri
     class Session
       API_VERSION = 'v2'
       API_HOST = 'rpxnow.com'
-      ROOT_CA_PATH = File.expand_path(File.join(File.dirname(__FILE__), 
+      ROOT_CA_PATH = File.expand_path(File.join(File.dirname(__FILE__),
                                                 '..', '..', '..', 'certs',
                                                 'curl-ca-bundle.crt'))
 
@@ -42,29 +42,56 @@ module Evri
 
       # Returns the mappings for a given user's primary key, as a
       # Evri::RPX::Mappings object.
-      def mappings(primary_key)
-        params = { 'apiKey' => @api_key,
-                   'primaryKey' => primary_key }
+      #
+      # Takes either a string of the user's primary key:
+      #   session.mappings('dbalatero')
+      # or a User object with an attached primary key:
+      #   session.mappings(
+      def mappings(user_or_primary_key)
+        params = { 'apiKey' => @api_key }
+        params['primaryKey'] = user_or_primary_key.respond_to?(:primary_key) ?
+            user_or_primary_key.primary_key : user_or_primary_key
+        
         json = parse_response(get("/api/#{API_VERSION}/mappings",
                                   params))
         Mappings.new(json)
       end
 
 
-      def map(primary_key, user_or_identifier, options = {})
+      # Map an OpenID to a primary key. Future logins by this owner of 
+      # this OpenID will return the mapped primaryKey in the auth_info 
+      # API response, which you may use to sign the user in.
+      #
+      #  
+      def map(user_or_identifier, primary_key, options = {})
         params = { 'apiKey' => @api_key,
                    'primaryKey' => primary_key,
                    'overwrite' => true }
         params.merge!(options)
-        params['identifier'] = user_or_identifier.respond_to?(:identifier) ? 
-            user_or_identifier.identifier : user_or_identifier
+        params['identifier'] = identifier_param(user_or_identifier)
         json = parse_response(get("/api/#{API_VERSION}/map",
                                   params))
 
-        return json['stat'] == 'ok'
+        json['stat'] == 'ok'
+      end
+
+      def unmap(user_or_identifier, primary_key)
+        params = { 'apiKey' => @api_key,
+                   'primaryKey' => primary_key }
+        params['identifier'] = identifier_param(user_or_identifier)
+
+        json = parse_response(get("/api/#{API_VERSION}/unmap",
+                                  params))
+
+        json['stat'] == 'ok'
       end
 
       private
+      def identifier_param(user_or_identifier)
+        user_or_identifier.respond_to?(:identifier) ? 
+            user_or_identifier.identifier : user_or_identifier
+      end
+
       def get(resource, params)
         request = Net::HTTP::Get.new(resource)
         request.form_data = params

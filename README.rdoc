@@ -4,4 +4,10 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2009 David Balatero. See LICENSE for details.
+== TODO
+
+ * Implement #all_mappings
+ * Implement #get_contacts
+ * Helper methods for forms, etc.
+
+Copyright (c) 2009 David Balatero, Evri, Inc. <dbalatero at evri dot com>. See LICENSE for details.

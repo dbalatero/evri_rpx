@@ -3,6 +3,7 @@ module Evri
     class User
       class InvalidUserJsonError < StandardError; end
 
+      attr_reader :credentials
       attr_reader :json
       alias :raw :json
 
@@ -11,7 +12,12 @@ module Evri
           raise InvalidUserJsonError,
                 'The JSON passed in is invalid!'
         end
+
         @json = json
+
+        if @json['accessCredentials']
+          @credentials = Credentials.new(@json['accessCredentials'])
+        end
       end
 
       # Returns the person's full name (aka David Balatero)
@@ -48,10 +54,6 @@ module Evri
       # Returns a URL to a person's profile on the 3rd-party site.
       def profile_url
         @json['profile']['url'] rescue nil
-      end
-
-      def credentials
-        nil
       end
 
       # Returns a user's email.

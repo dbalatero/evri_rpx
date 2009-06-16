@@ -78,7 +78,7 @@ describe Evri::RPX::User do
 
     describe "credentials" do
       it "should not be nil" do
-        pending
+        @user.credentials.should_not be_nil
       end
     end
 
@@ -215,7 +215,6 @@ describe Evri::RPX::User do
 
     describe "credentials" do
       it "should be set" do
-        pending
         @user.credentials.should_not be_nil
       end
     end

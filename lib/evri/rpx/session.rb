@@ -138,18 +138,18 @@ module Evri
       end
 
       def parse_response(response)
-        if response.code.to_i >= 400
-          result = JSON.parse(response.body)
+        result = JSON.parse(response.body)
 
+        if result['err']
           code = result['err']['code']
           if code == -1
             raise ServiceUnavailableError, "The RPX service is temporarily unavailable."
           else
             raise APICallError, "Got error: #{result['err']['msg']} (code: #{code}), HTTP status: #{response.code}"
           end
-        else
-          JSON.parse(response.body)
         end
+
+        result
       end
     end
   end

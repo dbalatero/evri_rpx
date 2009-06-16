@@ -139,4 +139,4 @@ provider? methods for Users
 
 Copyright
 =========
-Copyright (c) 2009 David Balatero, Evri, Inc. <dbalatero at evri dot com>. See LICENSE for details.
+Copyright (c) 2009 Evri, Inc. Authored by David Balatero <dbalatero at evri dot com>. See LICENSE for details.

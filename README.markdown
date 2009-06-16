@@ -1,13 +1,18 @@
 evri_rpx
 ========
-The evri_rpx library provides an wrapper around RPXNow's universal sign-on API.
+The `evri_rpx` library provides an wrapper around RPXNow's universal sign-on API.
 
 Features
 --------
  - Clean and simple API design
- - SSL certificate validation
- - Implements all RPX API calls
+ - Full SSL certificate validation
+ - Implements all RPX API calls, including ones available at the Pro level
  - 100% spec coverage
+ - Clear documentation (and if not, let me know!)
+
+TODO
+----
+ - Rails helper methods for building up the iframe/popup widget code.
 
 Usage/Install
 -------------
@@ -18,11 +23,11 @@ Usage/Install
 Examples
 ========
 
-Here are examples of the features in evri_rpx. As well, you can browse the RDocs here: http://rdoc.info/projects/dbalatero/evri_rpx
+Here are examples of the features in `evri_rpx`. As well, you can browse the RDocs here: [http://rdoc.info/projects/dbalatero/evri_rpx](http://rdoc.info/projects/dbalatero/evri_rpx)
 
-All interaction with the API goes through the public methods Evri::RPX::Session, which often return complex objects (see RDocs for all the methods available).
+All interaction with the API goes through the public methods in `Evri::RPX::Session`, which often return complex objects. See [RDocs](http://rdoc.info/projects/dbalatero/evri_rpx) for all the methods available on these objects.
 
-To see examples of raw JSON responses from RPX, see http://github.com/dbalatero/evri_rpx/tree/master/spec/fixtures
+To see examples of raw JSON responses from RPX, see [http://github.com/dbalatero/evri_rpx/tree/master/spec/fixtures](http://github.com/dbalatero/evri_rpx/tree/master/spec/fixtures)
 
 Validating tokens in your Rails app
 -----------------------------------
@@ -131,10 +136,6 @@ provider? methods for Users
     elsif user.facebook?
       # post an article to facebook via FB connect
     end
-
-TODO
-====
- - Helper methods for building up the iframe, forms, etc.
 
 Copyright
 =========

@@ -1,0 +1,9 @@
+{
+  "displayName": "Bob Johnson",
+    "emails": [
+    {
+      "type": "other",
+      "value": "bob@example.com"
+    }
+  ]
+}

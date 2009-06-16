@@ -57,6 +57,35 @@ describe Evri::RPX::Session do
     end
   end
 
+  describe "get_contacts" do
+    before(:each) do
+      FakeWeb.register_uri(:get,
+                           'https://rpxnow.com:443/api/v2/get_contacts',
+                           :file => fixture_path('session/get_contacts.json'))
+    end
+    
+    after(:each) do
+      FakeWeb.clean_registry
+    end
+
+    it "should return a contacts list for a identifier string" do
+      result = @session.get_contacts('http://brian.myopenid.com/')
+      result.should be_a_kind_of(Evri::RPX::ContactList)
+
+      result.contacts.should have(6).things
+    end
+
+    it "should return a contacts list for a user string" do
+      user = mock('user')
+      user.should_receive(:identifier).and_return('http://brian.myopenid.com/')
+
+      result = @session.get_contacts(user)
+      result.should be_a_kind_of(Evri::RPX::ContactList)
+
+      result.contacts.should have(6).things
+    end
+  end
+
   describe "map" do
     before(:each) do
       FakeWeb.register_uri(:get,

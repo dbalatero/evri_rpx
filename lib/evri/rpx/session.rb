@@ -39,19 +39,41 @@ module Evri
         User.new(json)
       end
 
+      # Get all stored mappings for a particular application.
+      #
+      # Returns a hash in this form:
+      #   { 'identifier1' => ['mapping1', 'mapping2'],
+      #     'identifier2' => ['mapping3', 'mapping4'],
+      #     ... }
       def all_mappings
         json = parse_response(get("/api/#{API_VERSION}/all_mappings",
                                   :apiKey => @api_key))
         json['mappings']
       end
 
+      # Retrieve a list of contacts for an identifier in the
+      # Portable Contacts format. 
+      #
+      # Takes either a string identifier, or a User object
+      # that responds to :identifier.
+      #
+      # This feature is only available for RPX Pro customers.
+      def get_contacts(user_or_identifier)
+        identifier = identifier_param(user_or_identifier)
+        json = parse_response(get("/api/#{API_VERSION}/get_contacts",
+                                  :apiKey => @api_key,
+                                  :identifier => identifier))
+        ContactList.new(json)
+      end
+
       # Returns the mappings for a given user's primary key, as a
       # Evri::RPX::Mappings object.
       #
       # Takes either a string of the user's primary key:
-      #   session.mappings('dbalatero')
+      #   m = session.mappings('dbalatero')
       # or a User object with an attached primary key:
-      #   session.mappings(
+      #   user = session.auth_info(params[:token])
+      #   m = session.mappings(user)
       def mappings(user_or_primary_key)
         params = { 'apiKey' => @api_key }
         params['primaryKey'] = user_or_primary_key.respond_to?(:primary_key) ?
@@ -67,7 +89,7 @@ module Evri
       # this OpenID will return the mapped primaryKey in the auth_info 
       # API response, which you may use to sign the user in.
       #
-      #  
+      # Returns true.  
       def map(user_or_identifier, primary_key, options = {})
         params = { 'apiKey' => @api_key,
                    'primaryKey' => primary_key,
@@ -80,6 +102,9 @@ module Evri
         json['stat'] == 'ok'
       end
 
+      # Remove (unmap) an OpenID from a primary key.
+      #
+      # Returns true.
       def unmap(user_or_identifier, primary_key)
         params = { 'apiKey' => @api_key,
                    'primaryKey' => primary_key }

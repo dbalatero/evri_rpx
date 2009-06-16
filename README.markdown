@@ -2,6 +2,8 @@ evri_rpx
 ========
 The `evri_rpx` library provides an wrapper around RPXNow's universal sign-on API. To learn more about this API, you can read up at [https://rpxnow.com/docs](https://rpxnow.com/docs)
 
+![Sign-on Screen](https://rpxnow.com/images/rpxnow-virgin.jpg "RPXNow Sign-on screen")
+
 Features
 --------
  - Clean and simple API design

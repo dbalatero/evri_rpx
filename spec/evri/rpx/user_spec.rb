@@ -299,4 +299,29 @@ describe Evri::RPX::User do
       end
     end
   end
+
+  describe "parsing Windows Live logins" do
+    before(:all) do
+      json = json_fixture('user/dbalatero_windows_live.json')
+      @user = Evri::RPX::User.new(json)
+    end
+
+    describe "windows_live?" do
+      it "should be true" do
+        @user.windows_live?.should be_true
+      end
+    end
+
+    describe "credentials" do
+      it "should not be nil" do
+        @user.credentials.should_not be_nil
+      end
+    end
+
+    describe "email" do
+      it "should be correct" do
+        @user.email.should == 'dbalatero16@hotmail.com'
+      end
+    end
+  end
 end

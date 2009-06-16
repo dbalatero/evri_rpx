@@ -7,9 +7,14 @@ module Evri
                                                 '..', '..', '..', 'certs',
                                                 'cacert.pem'))
 
+      # This error is raised when the RPX service is unavailable.
       class ServiceUnavailableError < StandardError; end
+
+      # This error is raised when an API call is misformed,
+      # or there is bad configuration on the other end.
       class APICallError < StandardError; end
 
+      # Returns the current RPX api_key attached to the session.
       attr_reader :api_key
 
       def initialize(api_key)

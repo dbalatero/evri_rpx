@@ -3,7 +3,10 @@ module Evri
     class User
       class InvalidUserJsonError < StandardError; end
 
+      # Returns a Credentials object for this user, or nil.
       attr_reader :credentials
+
+      # Returns the raw JSON returned by RPX, in case you want it. 
       attr_reader :json
       alias :raw :json
 
@@ -72,16 +75,24 @@ module Evri
         provider_name == 'Twitter'
       end
 
+      # Returns true if this is a Google login.
       def google?
         provider_name == 'Google'
       end
 
+      # Returns true if this is a Facebook login.
       def facebook?
         provider_name == 'Facebook'
       end
 
+      # Returns true if this is a Yahoo! login.
       def yahoo?
         provider_name == 'Yahoo!'
+      end
+
+      # Returns true if this is a Windows Live login.
+      def windows_live?
+        provider_name == 'Windows Live'
       end
     end
   end

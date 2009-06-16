@@ -1,6 +1,6 @@
 evri_rpx
 ========
-The `evri_rpx` library provides an wrapper around RPXNow's universal sign-on API.
+The `evri_rpx` library provides an wrapper around RPXNow's universal sign-on API. To learn more about this API, you can read up at [https://rpxnow.com/docs](https://rpxnow.com/docs)
 
 Features
 --------

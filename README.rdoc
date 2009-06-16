@@ -6,7 +6,6 @@ Description goes here.
 
 == TODO
 
- * Implement #get_contacts
  * Helper methods for forms, etc.
 
 Copyright (c) 2009 David Balatero, Evri, Inc. <dbalatero at evri dot com>. See LICENSE for details.

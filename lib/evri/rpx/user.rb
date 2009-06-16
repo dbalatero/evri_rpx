@@ -94,6 +94,12 @@ module Evri
       def windows_live?
         provider_name == 'Windows Live'
       end
+
+      # Returns true if this provider is unknown / doesn't have
+      # a specific name in the RPX system.
+      def other?
+        provider_name == 'Other'
+      end
     end
   end
 end

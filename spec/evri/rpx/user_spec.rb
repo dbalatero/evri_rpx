@@ -13,6 +13,15 @@ describe Evri::RPX::User do
     end
   end
 
+  describe "other?" do
+    it "should return true if the provider_name is Other" do
+      user = Evri::RPX::User.new({ 'profile' => {} })
+      user.should_receive(:provider_name).and_return('Other')
+
+      user.other?.should be_true
+    end
+  end
+
   describe "raw / json methods" do
     it "should return the raw JSON that was passed to the constructor" do
       json = { 'profile' => { 'email' => 'foo@bar.com' } }

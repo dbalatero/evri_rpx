@@ -6,7 +6,6 @@ Description goes here.
 
 == TODO
 
- * Implement #all_mappings
  * Implement #get_contacts
  * Helper methods for forms, etc.
 

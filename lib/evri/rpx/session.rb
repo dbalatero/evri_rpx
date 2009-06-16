@@ -7,7 +7,6 @@ module Evri
                                                 '..', '..', '..', 'certs',
                                                 'cacert.pem'))
 
-
       class ServiceUnavailableError < StandardError; end
       class APICallError < StandardError; end
 
@@ -38,6 +37,12 @@ module Evri
         json = parse_response(get("/api/#{API_VERSION}/auth_info",
                                   params))
         User.new(json)
+      end
+
+      def all_mappings
+        json = parse_response(get("/api/#{API_VERSION}/all_mappings",
+                                  :apiKey => @api_key))
+        json['mappings']
       end
 
       # Returns the mappings for a given user's primary key, as a

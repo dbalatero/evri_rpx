@@ -46,6 +46,17 @@ describe Evri::RPX::Session do
     end
   end
 
+  describe "all_mappings" do
+    it "should return a set of identifiers to mappings" do
+      FakeWeb.register_uri(:get,
+                           'https://rpxnow.com:443/api/v2/all_mappings',
+                           :file => fixture_path('session/all_mappings.json'))
+      result = @session.all_mappings
+      result['1'].should == ['http://cygnus.myopenid.com/']
+      result['2'].should == ['http://brianellin.com/', 'http://brian.myopenid.com/']
+    end
+  end
+
   describe "map" do
     before(:each) do
       FakeWeb.register_uri(:get,

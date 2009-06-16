@@ -1,0 +1,12 @@
+{
+  "mappings": {
+    "1": [
+      "http:\/\/cygnus.myopenid.com\/"
+    ],
+    "2": [
+      "http:\/\/brianellin.com\/",
+      "http:\/\/brian.myopenid.com\/"
+    ]
+  },
+  "stat": "ok"
+}

@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Balatero"]
-  s.date = %q{2009-06-16}
+  s.date = %q{2009-06-17}
   s.email = %q{dbalatero@evri.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
      ".gitignore",
+     "CHANGELOG.markdown",
      "LICENSE",
      "README.markdown",
      "Rakefile",
@@ -56,6 +57,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/dbalatero/evri_rpx}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
+  s.rubyforge_project = %q{evrigems}
   s.rubygems_version = %q{1.3.4}
   s.summary = %q{An API wrapper for the RPXNow.com login service.}
   s.test_files = [

@@ -19,8 +19,7 @@ TODO
 Usage/Install
 -------------
  - Grab an API key/account from [http://rpxnow.com](http://rpxnow.com)
- - As gem: `sudo gem install dbalatero-evri_rpx -s http://gems.github.com`
- - The gem will be on RubyForge soon, but their project request page is messed up, so no dice for now.
+ - As gem: `sudo gem install evri_rpx`
 
 Examples
 ========

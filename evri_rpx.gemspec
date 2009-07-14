@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{evri_rpx}
-  s.version = "1.0.0"
+  s.version = "1.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Balatero"]
-  s.date = %q{2009-06-16}
+  s.date = %q{2009-07-14}
   s.email = %q{dbalatero@evri.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -45,6 +45,7 @@ Gem::Specification.new do |s|
      "spec/fixtures/session/map.json",
      "spec/fixtures/session/normal_error.json",
      "spec/fixtures/session/service_down_error.json",
+     "spec/fixtures/session/set_status.json",
      "spec/fixtures/session/unmap.json",
      "spec/fixtures/user/dbalatero_facebook.json",
      "spec/fixtures/user/dbalatero_gmail.json",

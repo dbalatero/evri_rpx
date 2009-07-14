@@ -131,6 +131,19 @@ describe Evri::RPX::Session do
     end
   end
 
+  describe "set_status" do
+    it "should call set_status, and return true" do
+      FakeWeb.register_uri(:get,
+                           'https://rpxnow.com/api/v2/set_status',
+                           :body => fixture_path('session/set_status.json'))
+      user = mock('user')
+      user.should_receive(:identifier).and_return('https://www.facebook.com/dbalatero')
+
+      result = @session.set_status(user, "My new status!")
+      result.should be_true
+    end
+  end
+
   describe "unmap" do
     before(:each) do
       FakeWeb.register_uri(:get,

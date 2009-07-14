@@ -1,5 +1,11 @@
 module Evri
   module RPX
+    # All API calls go through this session object.
+    #
+    # Any API call has the chance of raising one of two errors, which
+    # you should be aware of:
+    #   - ServiceUnavailableError, raised when RPX is down
+    #   - APICallError, raised when RPX finds something wrong w/ your API call.
     class Session
       API_VERSION = 'v2'
       API_HOST = 'rpxnow.com'
@@ -102,6 +108,24 @@ module Evri
         params.merge!(options)
         params['identifier'] = identifier_param(user_or_identifier)
         json = parse_response(get("/api/#{API_VERSION}/map",
+                                  params))
+
+        json['stat'] == 'ok'
+      end
+
+      # Sets the status for a given user's social network. If this
+      # is not supported by the API, it will raise an error message 
+      # to that effect.
+      #
+      # See: https://rpxnow.com/dos#api_set_status
+      #
+      # Only available in Plus and Pro.
+      def set_status(user_or_identifier, status_message)
+        params = { 'apiKey' => @api_key,
+                   'status' => status_message }
+        params['identifier'] = identifier_param(user_or_identifier)
+
+        json = parse_response(get("/api/#{API_VERSION}/set_status",
                                   params))
 
         json['stat'] == 'ok'

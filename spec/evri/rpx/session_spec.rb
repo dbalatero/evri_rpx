@@ -19,7 +19,7 @@ describe Evri::RPX::Session do
     it "should raise an APICallError if RPX returns an error message" do
       FakeWeb.register_uri(:get,
                            'https://rpxnow.com:443/api/v2/auth_info',
-                           :file => fixture_path('session/normal_error.json'),
+                           :body => fixture_path('session/normal_error.json'),
                            :status => ['400', 'Bad Request'])
       lambda {
         @session.auth_info('errortoken')
@@ -29,7 +29,7 @@ describe Evri::RPX::Session do
     it "should raise ServiceUnavailableError if the service is not available" do
       FakeWeb.register_uri(:get,
                            'https://rpxnow.com:443/api/v2/auth_info',
-                           :file => fixture_path('session/service_down_error.json'),
+                           :body => fixture_path('session/service_down_error.json'),
                            :status => ['404', 'Not Found'])
       lambda {
         @session.auth_info('errortoken')
@@ -39,7 +39,7 @@ describe Evri::RPX::Session do
     it "should return a User object for a mapping" do
       FakeWeb.register_uri(:get,
                            'https://rpxnow.com:443/api/v2/auth_info',
-                           :file => fixture_path('user/dbalatero_gmail.json'))
+                           :body => fixture_path('user/dbalatero_gmail.json'))
 
       result = @session.auth_info('mytoken')
       result.should be_a_kind_of(Evri::RPX::User)
@@ -50,7 +50,7 @@ describe Evri::RPX::Session do
     it "should return a set of identifiers to mappings" do
       FakeWeb.register_uri(:get,
                            'https://rpxnow.com:443/api/v2/all_mappings',
-                           :file => fixture_path('session/all_mappings.json'))
+                           :body => fixture_path('session/all_mappings.json'))
       result = @session.all_mappings
       result['1'].should == ['http://cygnus.myopenid.com/']
       result['2'].should == ['http://brianellin.com/', 'http://brian.myopenid.com/']
@@ -61,7 +61,7 @@ describe Evri::RPX::Session do
     before(:each) do
       FakeWeb.register_uri(:get,
                            'https://rpxnow.com:443/api/v2/get_contacts',
-                           :file => fixture_path('session/get_contacts.json'))
+                           :body => fixture_path('session/get_contacts.json'))
     end
     
     after(:each) do
@@ -90,7 +90,7 @@ describe Evri::RPX::Session do
     before(:each) do
       FakeWeb.register_uri(:get,
                            'https://rpxnow.com:443/api/v2/map',
-                           :file => fixture_path('session/map.json'))
+                           :body => fixture_path('session/map.json'))
     end
 
     it "should take in a User object as the second parameter" do
@@ -111,7 +111,7 @@ describe Evri::RPX::Session do
     it "should return a Mappings object" do
       FakeWeb.register_uri(:get,
                            'https://rpxnow.com:443/api/v2/mappings',
-                           :file => fixture_path('mappings/identifiers.json'))
+                           :body => fixture_path('mappings/identifiers.json'))
 
       result = @session.mappings('dbalatero')
       result.should be_a_kind_of(Evri::RPX::Mappings)
@@ -121,7 +121,7 @@ describe Evri::RPX::Session do
     it "should take a User object in" do
       FakeWeb.register_uri(:get,
                            'https://rpxnow.com:443/api/v2/mappings',
-                           :file => fixture_path('mappings/identifiers.json'))
+                           :body => fixture_path('mappings/identifiers.json'))
       user = mock('user')
       user.should_receive(:primary_key).and_return('dbalatero')
 
@@ -135,7 +135,7 @@ describe Evri::RPX::Session do
     before(:each) do
       FakeWeb.register_uri(:get,
                            'https://rpxnow.com:443/api/v2/unmap',
-                           :file => fixture_path('session/unmap.json'))
+                           :body => fixture_path('session/unmap.json'))
     end
 
     it "should take a string as the identifier" do

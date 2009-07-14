@@ -138,6 +138,11 @@ provider? methods for Users
       # post an article to facebook via FB connect
     end
 
+Setting a Twitter/Facebook/MySpace status (Plus/Pro)
+----------------------------------------------------
+    user = rpx.auth_info(params[:token])
+    rpx.set_status(user, 'My new status message.')
+
 Copyright
 =========
 Copyright (c) 2009 Evri, Inc. Authored by David Balatero <dbalatero at evri dot com>. See LICENSE for details.

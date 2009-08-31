@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__)))
 
+require 'rubygems'
 require 'json'
 require 'net/http'
 require 'net/https'

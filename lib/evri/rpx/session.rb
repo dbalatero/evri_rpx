@@ -45,7 +45,7 @@ module Evri
                    'token' => token }
         params.merge!(options)
 
-        json = parse_response(get("/api/#{API_VERSION}/auth_info",
+        json = parse_response(post("/api/#{API_VERSION}/auth_info",
                                   params))
         User.new(json)
       end
@@ -57,7 +57,7 @@ module Evri
       #     'identifier2' => ['mapping3', 'mapping4'],
       #     ... }
       def all_mappings
-        json = parse_response(get("/api/#{API_VERSION}/all_mappings",
+        json = parse_response(post("/api/#{API_VERSION}/all_mappings",
                                   :apiKey => @api_key))
         json['mappings']
       end
@@ -71,7 +71,7 @@ module Evri
       # This feature is only available for RPX Pro customers.
       def get_contacts(user_or_identifier)
         identifier = identifier_param(user_or_identifier)
-        json = parse_response(get("/api/#{API_VERSION}/get_contacts",
+        json = parse_response(post("/api/#{API_VERSION}/get_contacts",
                                   :apiKey => @api_key,
                                   :identifier => identifier))
         ContactList.new(json)
@@ -90,7 +90,7 @@ module Evri
         params['primaryKey'] = user_or_primary_key.respond_to?(:primary_key) ?
             user_or_primary_key.primary_key : user_or_primary_key
         
-        json = parse_response(get("/api/#{API_VERSION}/mappings",
+        json = parse_response(post("/api/#{API_VERSION}/mappings",
                                   params))
         Mappings.new(json)
       end
@@ -107,7 +107,7 @@ module Evri
                    'overwrite' => true }
         params.merge!(options)
         params['identifier'] = identifier_param(user_or_identifier)
-        json = parse_response(get("/api/#{API_VERSION}/map",
+        json = parse_response(post("/api/#{API_VERSION}/map",
                                   params))
 
         json['stat'] == 'ok'
@@ -125,7 +125,7 @@ module Evri
                    'status' => status_message }
         params['identifier'] = identifier_param(user_or_identifier)
 
-        json = parse_response(get("/api/#{API_VERSION}/set_status",
+        json = parse_response(post("/api/#{API_VERSION}/set_status",
                                   params))
 
         json['stat'] == 'ok'
@@ -139,7 +139,7 @@ module Evri
                    'primaryKey' => primary_key }
         params['identifier'] = identifier_param(user_or_identifier)
 
-        json = parse_response(get("/api/#{API_VERSION}/unmap",
+        json = parse_response(post("/api/#{API_VERSION}/unmap",
                                   params))
 
         json['stat'] == 'ok'
@@ -151,8 +151,8 @@ module Evri
             user_or_identifier.identifier : user_or_identifier
       end
 
-      def get(resource, params)
-        request = Net::HTTP::Get.new(resource)
+      def post(resource, params)
+        request = Net::HTTP::Post.new(resource)
         request.form_data = params
         make_request(request)
       end

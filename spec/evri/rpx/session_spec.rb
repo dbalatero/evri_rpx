@@ -17,7 +17,7 @@ describe Evri::RPX::Session do
     end
 
     it "should raise an APICallError if RPX returns an error message" do
-      FakeWeb.register_uri(:get,
+      FakeWeb.register_uri(:post,
                            'https://rpxnow.com:443/api/v2/auth_info',
                            :body => fixture_path('session/normal_error.json'),
                            :status => ['400', 'Bad Request'])
@@ -27,7 +27,7 @@ describe Evri::RPX::Session do
     end
 
     it "should raise ServiceUnavailableError if the service is not available" do
-      FakeWeb.register_uri(:get,
+      FakeWeb.register_uri(:post,
                            'https://rpxnow.com:443/api/v2/auth_info',
                            :body => fixture_path('session/service_down_error.json'),
                            :status => ['404', 'Not Found'])
@@ -37,7 +37,7 @@ describe Evri::RPX::Session do
     end
 
     it "should return a User object for a mapping" do
-      FakeWeb.register_uri(:get,
+      FakeWeb.register_uri(:post,
                            'https://rpxnow.com:443/api/v2/auth_info',
                            :body => fixture_path('user/dbalatero_gmail.json'))
 
@@ -48,7 +48,7 @@ describe Evri::RPX::Session do
 
   describe "all_mappings" do
     it "should return a set of identifiers to mappings" do
-      FakeWeb.register_uri(:get,
+      FakeWeb.register_uri(:post,
                            'https://rpxnow.com:443/api/v2/all_mappings',
                            :body => fixture_path('session/all_mappings.json'))
       result = @session.all_mappings
@@ -59,7 +59,7 @@ describe Evri::RPX::Session do
 
   describe "get_contacts" do
     before(:each) do
-      FakeWeb.register_uri(:get,
+      FakeWeb.register_uri(:post,
                            'https://rpxnow.com:443/api/v2/get_contacts',
                            :body => fixture_path('session/get_contacts.json'))
     end
@@ -88,7 +88,7 @@ describe Evri::RPX::Session do
 
   describe "map" do
     before(:each) do
-      FakeWeb.register_uri(:get,
+      FakeWeb.register_uri(:post,
                            'https://rpxnow.com:443/api/v2/map',
                            :body => fixture_path('session/map.json'))
     end
@@ -109,7 +109,7 @@ describe Evri::RPX::Session do
 
   describe "mappings" do
     it "should return a Mappings object" do
-      FakeWeb.register_uri(:get,
+      FakeWeb.register_uri(:post,
                            'https://rpxnow.com:443/api/v2/mappings',
                            :body => fixture_path('mappings/identifiers.json'))
 
@@ -119,7 +119,7 @@ describe Evri::RPX::Session do
     end
 
     it "should take a User object in" do
-      FakeWeb.register_uri(:get,
+      FakeWeb.register_uri(:post,
                            'https://rpxnow.com:443/api/v2/mappings',
                            :body => fixture_path('mappings/identifiers.json'))
       user = mock('user')
@@ -133,7 +133,7 @@ describe Evri::RPX::Session do
 
   describe "set_status" do
     it "should call set_status, and return true" do
-      FakeWeb.register_uri(:get,
+      FakeWeb.register_uri(:post,
                            'https://rpxnow.com/api/v2/set_status',
                            :body => fixture_path('session/set_status.json'))
       user = mock('user')
@@ -146,7 +146,7 @@ describe Evri::RPX::Session do
 
   describe "unmap" do
     before(:each) do
-      FakeWeb.register_uri(:get,
+      FakeWeb.register_uri(:post,
                            'https://rpxnow.com:443/api/v2/unmap',
                            :body => fixture_path('session/unmap.json'))
     end
